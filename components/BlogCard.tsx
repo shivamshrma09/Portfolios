@@ -7,16 +7,23 @@ interface BlogCardProps {
   title: string
   date: string
   image: string
+  link?: string
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({ title, date, image }) => {
+const BlogCard: React.FC<BlogCardProps> = ({ title, date, image, link }) => {
+  const handleClick = () => {
+    if (link) {
+      window.open(link, '_blank')
+    }
+  }
   return (
     <motion.div 
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
       viewport={{ once: true }}
-      className='bg-neutral-900/30 border border-neutral-500/20 overflow-hidden hover:border-neutral-500/30 transition-colors cursor-pointer'>
+      className='bg-neutral-900/30 border border-neutral-500/20 overflow-hidden hover:border-neutral-500/30 transition-colors cursor-pointer'
+      onClick={handleClick}>
       
       <Image 
         src={image}

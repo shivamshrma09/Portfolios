@@ -14,9 +14,11 @@ import { SiCodeforces } from "react-icons/si";
 import { SiLeetcode } from "react-icons/si";
 import { GrDocumentDownload } from "react-icons/gr";
 import { AiOutlineCopyright } from "react-icons/ai";
+import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import ProjectCard from '../components/ProjectCard';
 import BlogCard from '../components/BlogCard';
 import EducationCard from '../components/EducationCard';
+import ConnectCard from '../components/ConnectCard';
 
 function page() {
   const achievements = [
@@ -36,6 +38,8 @@ function page() {
   const [currentEducationImageIndex, setCurrentEducationImageIndex] = useState(0);
   const [currentClass12ImageIndex, setCurrentClass12ImageIndex] = useState(0);
   const [currentClass10ImageIndex, setCurrentClass10ImageIndex] = useState(0);
+  const [isConnectCardOpen, setIsConnectCardOpen] = useState(false);
+  const [currentEducationCard, setCurrentEducationCard] = useState(0);
 
   const carouselImages = [
     'https://ik.imagekit.io/qwzhnpeqg/Portfolio/Screenshot%202026-01-31%20012005.png',
@@ -56,6 +60,33 @@ function page() {
   const class10Images = [
     'https://ik.imagekit.io/qwzhnpeqg/Portfolio/download%20(15).png',
     'https://ik.imagekit.io/qwzhnpeqg/Portfolio/download%20(2).jpg'
+  ];
+
+  const educationData = [
+    {
+      degree: "B.Tech Electrical Enginner",
+      institution: "Delhi Technological University (DTU), New Delhi",
+      duration: "2024 - 2028",
+      achievements: ['CGPA 7.9/10', 'Gold medal and 10 CGPA in Semester 4'],
+      images: educationImages,
+      currentImageIndex: currentEducationImageIndex
+    },
+    {
+      degree: "Class 12th, DBSE",
+      institution: "Dr. B.R. Ambedkar School of Specialized Excellence (SOSE), New Delhi",
+      duration: "2023 - 2024",
+      achievements: ['87%', 'Mental Maths school level'],
+      images: class12Images,
+      currentImageIndex: currentClass12ImageIndex
+    },
+    {
+      degree: "Class 10th, CBSE",
+      institution: "Government Boys Senior Secondary School (GBSSS), New Delhi",
+      duration: "2021 - 2022",
+      achievements: ['87%', 'Mental Maths from class 3rd to 12th', 'Won 5+ Science and other competitions'],
+      images: class10Images,
+      currentImageIndex: currentClass10ImageIndex
+    }
   ];
 
   const skillCategories = {
@@ -145,22 +176,26 @@ function page() {
           </div>
           
           <div className='text-neutral-500 text-center flex flex-row gap-3 px-10 py-2 rounded-xl border border-neutral-500/15'>
-            <button className='hover:text-white'>About</button>
-            <button className='hover:text-white'>Projects</button>
-            <button className='hover:text-white'>Skills</button>
-            <button className='hover:text-white'>Achivments</button>
-            <button className='hover:text-white'>Blogs</button>
-            <button className='hover:text-white'>Education</button>
+            <button onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })} className='hover:text-white'>About</button>
+            <button onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className='hover:text-white'>Projects</button>
+            <button onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })} className='hover:text-white'>Skills</button>
+            <button onClick={() => document.getElementById('achievements')?.scrollIntoView({ behavior: 'smooth' })} className='hover:text-white'>Achievements</button>
+            <button onClick={() => document.getElementById('blogs')?.scrollIntoView({ behavior: 'smooth' })} className='hover:text-white'>Blogs</button>
+            <button onClick={() => document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' })} className='hover:text-white'>Education</button>
           </div>
 
           <div className='flex flex-row'>
             <div className='items-center justify-center px-4 mr-1 font-bold py-1 rounded-xl border border-gray-500/30 hover:bg-white text-white bg-black hover:text-black text-center flex flex-row gap-2'>
-              <button>Resume</button>
-              <GrDocumentDownload size={20}/>
+              <a href="/resume.pdf" download="Shivam_Kumar_Resume.pdf">
+                <button className='flex items-center gap-2'>
+                  Resume
+                  <GrDocumentDownload size={20}/>
+                </button>
+              </a>
             </div> 
 
             <div className='items-center justify-center px-4 font-bold py-1 rounded-xl border border-gray-500/20 bg-white text-black text-center flex flex-row gap-2'>
-              <button>Connect</button>
+              <button onClick={() => setIsConnectCardOpen(true)}>Connect</button>
               <CiLocationArrow1 size={20}/>
             </div>
           </div>
@@ -189,6 +224,7 @@ function page() {
         </motion.div>
 
         <motion.div 
+          id="about"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -271,6 +307,7 @@ function page() {
         </motion.div>
 
         <motion.div 
+          id="skills"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -328,6 +365,7 @@ function page() {
         </motion.div>
 
         <motion.div 
+          id="education"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -336,35 +374,48 @@ function page() {
           <h1 className='font-bold text-white text-5xl'>EDUCATION</h1>
           <hr className='w-90 border-neutral-500/30 border-t-2'></hr>
 
-          <EducationCard 
-            degree="B.Tech Electrical Enginner"
-            institution="Delhi Technological University (DTU), New Delhi"
-            duration="2024 - 2028"
-            achievements={['CGPA 7.9/10', 'Gold medal and 10 CGPA in Semester 4']}
-            images={educationImages}
-            currentImageIndex={currentEducationImageIndex}
-          />
-
-          <EducationCard 
-            degree="Class 12th, DBSE"
-            institution="Dr. B.R. Ambedkar School of Specialized Excellence (SOSE), New Delhi"
-            duration="2023 - 2024"
-            achievements={['87%', 'Mental Maths school level']}
-            images={class12Images}
-            currentImageIndex={currentClass12ImageIndex}
-          />
-
-          <EducationCard 
-            degree="Class 10th, CBSE"
-            institution="Government Boys Senior Secondary School (GBSSS), New Delhi"
-            duration="2021 - 2022"
-            achievements={['87%', 'Mental Maths from class 3rd to 12th', 'Won 5+ Science and other competitions']}
-            images={class10Images}
-            currentImageIndex={currentClass10ImageIndex}
-          />
+          <div className='relative w-full flex items-center justify-center gap-8'>
+            <button 
+              onClick={() => setCurrentEducationCard(prev => prev === 0 ? educationData.length - 1 : prev - 1)}
+              className='p-2 bg-neutral-800 hover:bg-neutral-700 rounded-full text-white transition-colors'
+            >
+              <IoChevronBack size={24} />
+            </button>
+            
+            <div className='flex-1 max-w-4xl'>
+              <EducationCard 
+                degree={educationData[currentEducationCard].degree}
+                institution={educationData[currentEducationCard].institution}
+                duration={educationData[currentEducationCard].duration}
+                achievements={educationData[currentEducationCard].achievements}
+                images={educationData[currentEducationCard].images}
+                currentImageIndex={educationData[currentEducationCard].currentImageIndex}
+              />
+            </div>
+            
+            <button 
+              onClick={() => setCurrentEducationCard(prev => prev === educationData.length - 1 ? 0 : prev + 1)}
+              className='p-2 bg-neutral-800 hover:bg-neutral-700 rounded-full text-white transition-colors'
+            >
+              <IoChevronForward size={24} />
+            </button>
+          </div>
+          
+          <div className='flex justify-center mt-6 gap-2'>
+            {educationData.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentEducationCard(index)}
+                className={`w-3 h-3 rounded-full transition-colors ${
+                  index === currentEducationCard ? 'bg-white' : 'bg-neutral-600'
+                }`}
+              />
+            ))}
+          </div>
         </motion.div>
 
         <motion.div 
+          id="projects"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -410,9 +461,21 @@ function page() {
               />
             </div>
           </div>
+          
+          <p className='text-neutral-400 text-center text-lg mt-6 mb-4'>Get my contact details and connect with me professionally</p>
+          
+          <div className='flex justify-center mt-8'>
+            <a href="/business-card.pdf" download="Shivam_Kumar_Card.pdf">
+              <button className='flex items-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 transition-colors'>
+                Download My Card
+                <TfiDownload size={18}/>
+              </button>
+            </a>
+          </div>
         </motion.div>
 
         <motion.div 
+          id="blogs"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -430,6 +493,7 @@ function page() {
               title="From 2 Failed projects to Production ready Frontend"
               date="Dec 20, 2025"
               image="https://ik.imagekit.io/qwzhnpeqg/Portfolio/0_ALVSrc9K9GN6-boh.webp"
+              link="https://medium.com/@vsion09/from-beginner-to-production-level-frontend-7dff3ba350e2"
             />
 
             <BlogCard 
@@ -440,6 +504,10 @@ function page() {
           </div>
         </motion.div>
 
+        <ConnectCard 
+          isOpen={isConnectCardOpen} 
+          onClose={() => setIsConnectCardOpen(false)} 
+        />
       </div>
     </div>
   )
